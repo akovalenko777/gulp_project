@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 const sass = require("gulp-sass")(require('sass'));
+const ghPages = require("gulp-gh-pages");
 
 gulp.task('serve', function() {
     browserSync.init({
@@ -18,6 +19,11 @@ gulp.task('sass', function() {
         .pipe(sass())
         .pipe(gulp.dest("src/css"))
         .pipe(browserSync.stream());
+});
+
+gulp.task('deploy', function() {
+    return gulp.src('./dist/**/*')
+      .pipe(ghPages());
 });
 
 gulp.task('move-html', ()=>{
